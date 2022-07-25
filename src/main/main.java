@@ -1,6 +1,5 @@
 package main;
 
-import Calculos.Calculos;
 import Construtor.Matriz;
 import Leitura.Leitura;
 import SA.SA;
@@ -15,9 +14,11 @@ public class main {
 
         List<List<Double>> matrizDistancia = Matriz.construirMatrizDistancia(mat);
 
+        List<Double> valorFinal = SA.inicio(matrizDistancia);
+        int fim = valorFinal.size() -1;
+        System.out.println(valorFinal.get(fim));
 
-        Double valorFinal = SA.inicio(matrizDistancia);
-
-        System.out.println(valorFinal);
+        var ex = new Grafico(valorFinal);
+        ex.setVisible(true);
     }
 }

@@ -1,0 +1,30 @@
+
+k	java:S1174"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı¹áøÿÿÿÿ
+E
+java:S5411'"*Use the primitive boolean expression here.(Ê²ó–øÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ä¤ïúÿÿÿÿ
+3
+java:S2119$"Save and re-use this "Random".(¼İÅf
+d
+java:S1126§"AReplace this if-then-else statement by a single return statement.(‰³¢üÿÿÿÿ8Ê„¾¼¢0
+U
+java:S1118":Add a private constructor to hide the implicit public one.(­ĞÒ™şÿÿÿÿ
+`
+java:S1128"KRemove this unused import 'org.jfree.data.category.DefaultCategoryDataset'.(à¿¿E
+T
+java:S1128"9Remove this unused import 'org.jfree.chart.ChartFactory'.(Ç”´ùøÿÿÿÿ
+V	java:S106•"9Replace this use of System.out or System.err by a logger.(‚ş±Ë8¤ï¿¼¢0
+o	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(õÁ³‡
+M
+java:S1128"7Remove this unused import 'org.jfree.chart.JFreeChart'.(Õ˜„Ä
+J
+java:S3740p"/Provide the parametrized type for this generic.(ò¿ªÃøÿÿÿÿ
+3
+java:S2119M"Save and re-use this "Random".(¼İÅf
+^
+java:S2095J"HUse try-with-resources or close this "FileWriter" in a "finally" clause.(ëÒğ¼
+E
+java:S5411o"*Use the primitive boolean expression here.(µ©Ùøÿÿÿÿ
+M
+java:S1128"7Remove this unused import 'org.jfree.chart.ChartPanel'.(„è‡×
+V	java:S106†"9Replace this use of System.out or System.err by a logger.(¦ĞôÛ8É’à»¢0

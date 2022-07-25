@@ -1,15 +1,25 @@
 package SA;
 
 import Calculos.Calculos;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
+
 public class SA {
 
-    private static final double e = 2.71;
+    private static final double e = 2.72;
 
     public static Double diferencaSolucoes(List<Integer> vetor, List<Integer> vetorVizinho, List<List<Double>> mat) {
         Double primeiro = Calculos.calcularPesoVetor(vetor, mat);
@@ -34,24 +44,56 @@ public class SA {
         return vetorInicial;
     }
 
-    public static Double inicio(List<List<Double>> matriz) throws IOException {
+    public static double primeiroGrafico(int i, double tempInicial, double tempFinal, int max) {
+        return tempInicial - ((i+1)*((tempInicial-tempFinal)/max));
+    }
+
+    public static double melhorGrafico(int i, double tempInicial, double tempFinal, int max) {
+        Double A = (Math.log(tempInicial/tempFinal));
+
+
+
+        BigDecimal t = new BigDecimal(1);
+        BigDecimal o = new BigDecimal(max);
+
+
+        BigDecimal b = t.divide(o);
+
+        double umSobreN = b.doubleValue();
+
+        A*= umSobreN;
+
+
+        return (tempInicial *(Math.pow(e, (((-1.0)*(A))*i))));
+    }
+
+    public static List<Double> inicio(List<List<Double>> matriz) throws IOException  {
+
+
+
         Writer file = new FileWriter("teste.txt");
         List<Integer> vetorInicial = gerarSolucaoInicial(matriz.size());
 
         Random random = new Random();
-        double tempInicial = 40;
+        double tempInicial = 12000;
         double temp = tempInicial;
-        double tempFinal = 4;
+        double tempFinal = 24;
+        double media = 0;
         int max = 500000;
 
+        List<Double> lista = new ArrayList<>();
+
         Double valor =  Calculos.calcularPesoVetor(vetorInicial, matriz);
+        media += valor;
         file.write(String.valueOf(valor.intValue()));
         file.write("\n");
 
         List<Integer> vetorVizinho = new ArrayList<>(vetorInicial);
         for (int i = 0; i < max; i++) {
+            lista.add(Calculos.calcularPesoVetor(vetorInicial, matriz));
             Integer qtdPerturbacoes = random.nextInt(4) + 1;
 
+            vetorVizinho = new ArrayList<>(vetorInicial);
             for (int j = 0; j < qtdPerturbacoes; j++) {
                 int trocaI = random.nextInt(vetorInicial.size() - 1);
                 int trocaJ = trocaI;
@@ -71,22 +113,42 @@ public class SA {
             } else {
                 Double diferenca = diferencaSolucoes(vetorInicial, vetorVizinho, matriz);
 
-                double probabilidadeAceitacao = Math.pow(e, ((-diferenca) / temp));
+                double probabilidadeAceitacao = Math.pow(e, (((-1.0)*(diferenca)) / temp));
                 double aleatorio = random.nextDouble();
+
 
                 if (aleatorio <= probabilidadeAceitacao) {
                     vetorInicial = new ArrayList<>(vetorVizinho);
                 }
 
-                temp = tempInicial - ((i+1)*((tempInicial-tempFinal)/max));
+                temp = primeiroGrafico(i, tempInicial, tempFinal, max);
+
             }
             valor =  Calculos.calcularPesoVetor(vetorInicial, matriz);
-
+            media+= valor;
             file.write(String.valueOf(valor.intValue()));
             file.write("\n");
         }
+        int total = lista.size();
+        media = media/total;
+        System.out.println(media);
 
-        return Calculos.calcularPesoVetor(vetorInicial, matriz);
+        double somaValores = 0;
+
+        for (double listas : lista) {
+            somaValores+= Math.pow((media - listas), 2);
+        }
+
+        somaValores = somaValores/max;
+
+        somaValores = Math.sqrt(somaValores);
+        DecimalFormat fmt = new DecimalFormat("0.00");
+
+        String desvioPadrao =  fmt.format(somaValores);
+
+        System.out.println(desvioPadrao);
+
+        return lista;
     }
 
     public static Boolean numeroJaAdicionado(List<Integer> vetorInicial, Integer numero) {
